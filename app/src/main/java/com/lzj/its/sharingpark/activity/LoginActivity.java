@@ -273,26 +273,8 @@ public class LoginActivity extends Activity
                 } else {
                     showToast(message);
                 }
-
                 setLoginBtnClickable(true);  //这里解放登录按钮，设置为可以点击
                 hideLoading();//隐藏加载框
-//            if (success == 1) {
-//                runOnUiThread(() -> {
-//                    //更新UI
-//                    Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-//                });
-//                Intent intent = new Intent(LoginActivity.this, LoginAfterActivity.class);
-//                startActivity(intent);
-//            } else {
-//                runOnUiThread(() -> {
-//                    //更新UI
-//                    Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-//                });
-//
-//                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//                parseJSONWithJSONObject(responseData);
 
             } catch (Exception e) {
                 e.printStackTrace();
