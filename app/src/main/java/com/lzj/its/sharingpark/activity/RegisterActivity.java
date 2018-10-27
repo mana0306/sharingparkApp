@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.lzj.its.sharingpark.MyApplication;
 import com.lzj.its.sharingpark.R;
+import com.lzj.its.sharingpark.wedget.LoadingDialog;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONException;
@@ -40,6 +42,8 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private EditText et_phone;
     private ImageView iv_see_password;
     private ImageView iv_see_password_confirm;
+
+    private LoadingDialog mLoadingDialog; //显示正在加载的对话框
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,15 +87,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 setPasswordVisibility(this.iv_see_password_confirm, this.et_password_confirm);    //改变图片并设置输入框的文本可见或不可见
                 break;
             case R.id.btn_register:
-                try {
-                    register();
-                } catch (IOException | JSONException e) {
-                    e.printStackTrace();
-                }
+                register();
                 break;
 
         }
     }
+
     /**
      * 设置密码可见和不可见的相互转换
      */
@@ -108,46 +109,51 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         }
 
     }
-    private void register() throws IOException, JSONException {
-        
-        RequestBody requestBody=new FormBody.Builder()
-                .add("userName", getUserName())
-                .add("password", getPassword())
-                .add("phone", getPhone())
-                .build();
-        Request request = new Request.Builder()
-                // 指定访问的服务器地址是电脑本机
-                .url( getString(R.string.api_ip_port) + "/register")
-                .post(requestBody)
-                .build();
-        Response response = client.newCall(request).execute();
-        assert response.body() != null;
-        String responseData = response.body().string();
-        Headers headers = response.headers();
-        List<String> cookies = headers.values("Set-Cookie");
-        String session = cookies.get(0);
-        String s = session.substring(0, session.indexOf(";"));
-        app = (MyApplication) getApplication(); //获得我们的应用程序MyApplication
-        app.setS(s);
 
-        JSONObject jsonObject = new JSONObject(responseData);
-        Integer success = jsonObject.getInt("success");
-        final String message = jsonObject.getString("message");
-        if(success==1){
-            runOnUiThread(() -> {
-                //更新UI
-                Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-            });
+    private void register() {
+        //登录一般都是请求服务器来判断密码是否正确，要请求网络，要子线程
+        showLoading();//显示加载框
+        Thread registerRunnable = new Thread(() -> {
+            try {
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("userName", getUserName())
+                        .add("password", getPassword())
+                        .add("phone", getPhone())
+                        .build();
+                Request request = new Request.Builder()
+                        // 指定访问的服务器地址是电脑本机
+                        .url(getString(R.string.api_ip_port) + "/register")
+                        .post(requestBody)
+                        .build();
+                Response response = client.newCall(request).execute();
+                assert response.body() != null;
+                String responseData = response.body().string();
+                Headers headers = response.headers();
+                List<String> cookies = headers.values("Set-Cookie");
+                String session = cookies.get(0);
+                String s = session.substring(0, session.indexOf(";"));
+                app = (MyApplication) getApplication(); //获得我们的应用程序MyApplication
+                app.setS(s);
 
-            Intent intent = new Intent(this,LoginActivity.class);
-            startActivity(intent);
-        }
-        else{
-            runOnUiThread(() -> {
-                //更新UI
-                Toast.makeText(RegisterActivity.this,message,Toast.LENGTH_SHORT).show();
-            });
-        }
+                JSONObject jsonObject = new JSONObject(responseData);
+                Integer success = jsonObject.getInt("success");
+                final String message = jsonObject.getString("message");
+                //判断账号和密码
+                if (success == 1) {
+                    showToast("注册成功");
+                    startActivity(new Intent(RegisterActivity.this, LoginAfterActivity.class));
+                    finish();//关闭页面
+                } else {
+                    showToast(message);
+                }
+                hideLoading();//隐藏加载框
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                hideLoading();//隐藏加载框
+            }
+        });
+        registerRunnable.start();
     }
 
 
@@ -168,5 +174,60 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     public String getPhone() {
         return et_phone.getText().toString().trim();//去掉空格
+    }
+
+    /**
+     * 显示加载的进度款
+     */
+    public void showLoading() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(this, getString(R.string.loading), false);
+        }
+        mLoadingDialog.show();
+    }
+
+
+    /**
+     * 隐藏加载的进度框
+     */
+    public void hideLoading() {
+        if (mLoadingDialog != null) {
+            runOnUiThread(() -> mLoadingDialog.hide());
+
+        }
+    }
+
+
+    /**
+     * 监听回退键
+     */
+    @Override
+    public void onBackPressed() {
+        if (mLoadingDialog != null) {
+            if (mLoadingDialog.isShowing()) {
+                mLoadingDialog.cancel();
+            } else {
+                finish();
+            }
+        } else {
+            finish();
+        }
+
+    }
+
+    /**
+     * 页面销毁前回调的方法
+     */
+    protected void onDestroy() {
+        if (mLoadingDialog != null) {
+            mLoadingDialog.cancel();
+            mLoadingDialog = null;
+        }
+        super.onDestroy();
+    }
+
+
+    public void showToast(String msg) {
+        runOnUiThread(() -> Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show());
     }
 }
