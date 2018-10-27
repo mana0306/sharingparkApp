@@ -228,8 +228,6 @@ public class LoginActivity extends Activity
      * 用户名csdn，密码123456，就能登录成功，否则登录失败
      */
     private void login() {
-
-        Logger.i("begin to login");
         //先做一些基本的判断，比如输入的用户命为空，密码为空，网络不可用多大情况，都不需要去链接服务器了，而是直接返回提示错误
         if (getAccount().isEmpty()){
             showToast("你输入的账号为空！");
