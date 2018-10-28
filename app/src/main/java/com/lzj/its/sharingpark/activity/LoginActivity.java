@@ -268,7 +268,7 @@ public class LoginActivity extends Activity
                     showToast("登录成功");
                     loadCheckBoxState();//记录下当前用户记住密码和自动登录的状态;
 
-                    startActivity(new Intent(LoginActivity.this, LoginAfterActivity.class));
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();//关闭页面
                 } else {
                     showToast(message);

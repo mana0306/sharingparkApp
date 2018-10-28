@@ -192,7 +192,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 //判断账号和密码
                 if (success == 1) {
                     showToast("注册成功");
-                    startActivity(new Intent(RegisterActivity.this, LoginAfterActivity.class));
+                    startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                     finish();//关闭页面
                 } else {
                     showToast(message);
