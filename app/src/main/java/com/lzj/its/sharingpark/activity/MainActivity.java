@@ -3,19 +3,19 @@ package com.lzj.its.sharingpark.activity;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 
 import com.lzj.its.sharingpark.R;
 import com.lzj.its.sharingpark.fragment.BaseFragment;
+import com.lzj.its.sharingpark.fragment.IndexFragment;
 import com.lzj.its.sharingpark.fragment.UserFragment;
 import com.lzj.its.sharingpark.fragment.ViewPagerAdapter;
 
 /**
  * 主页面
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private MenuItem menuItem;
@@ -33,14 +33,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
-                        case R.id.item_sharing:
+                        case R.id.item_index:
                             viewPager.setCurrentItem(0);
                             break;
-                        case R.id.item_parking:
-                            viewPager.setCurrentItem(1);
-                            break;
                         case R.id.item_user:
-                            viewPager.setCurrentItem(2);
+                            viewPager.setCurrentItem(1);
                             break;
                     }
                     return false;
@@ -82,11 +79,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFragment(BaseFragment.newInstance("共 享"));
-        adapter.addFragment(BaseFragment.newInstance("停 车"));
-        adapter.addFragment(UserFragment.newInstance("我 的"));
+        adapter.addFragment(new IndexFragment());
+        adapter.addFragment(new UserFragment());
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(1);
     }
 
 }

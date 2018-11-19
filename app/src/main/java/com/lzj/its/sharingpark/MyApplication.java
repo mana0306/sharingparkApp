@@ -2,6 +2,8 @@ package com.lzj.its.sharingpark;
 
 import android.app.Application;
 
+import com.baidu.mapapi.SDKInitializer;
+
 import okhttp3.OkHttpClient;
 
 
@@ -14,8 +16,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        setName("未登录"); //初始化全局变量
-        setS("0");
+        SDKInitializer.initialize(this);
     }
 
     public String getName() {

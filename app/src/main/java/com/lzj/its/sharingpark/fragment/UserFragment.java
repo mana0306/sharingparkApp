@@ -2,61 +2,72 @@ package com.lzj.its.sharingpark.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.allen.library.SuperTextView;
 import com.lzj.its.sharingpark.R;
 import com.lzj.its.sharingpark.activity.AccountActivity;
 import com.lzj.its.sharingpark.activity.LoginActivity;
-import com.lzj.its.sharingpark.activity.MainActivity;
+import com.lzj.its.sharingpark.activity.ParkingActivity;
+import com.lzj.its.sharingpark.activity.SharingActivity;
 import com.lzj.its.sharingpark.util.SharedPreferencesUtils;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link UserFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class UserFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
+import org.json.JSONObject;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
+import java.util.List;
+
+import okhttp3.FormBody;
+import okhttp3.Headers;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+public class UserFragment extends BaseFragment {
 
     public UserFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @return A new instance of fragment UserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static UserFragment newInstance(String param1) {
-        UserFragment fragment = new UserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-        }
+    }
+
+    private void logout() {
+        Thread loginRunnable = new Thread(() -> {
+            try {
+                Request request = new Request.Builder()
+                        // 指定访问的服务器地址是电脑本机
+                        .addHeader("cookie", session)
+                        .url(getString(R.string.api_ip_port) + "/logout")
+                        .get()
+                        .build();
+                Response response = client.newCall(request).execute();
+                String responseData = response.body().string();
+                Headers headers = response.headers();
+                List<String> cookies = headers.values("Set-Cookie");
+                String session = cookies.get(0);
+                String s = session.substring(0, session.indexOf(";"));
+                app.setS(s);
+
+                JSONObject jsonObject = new JSONObject(responseData);
+                Integer success = jsonObject.getInt("success");
+//                final String message = jsonObject.getString("message");
+                //判断账号和密码
+                if (success == 1) {
+                    showToast("注销成功，请重新登陆！");
+
+                    startActivity(new Intent(getActivity(), LoginActivity.class));
+                    getActivity().finish();//关闭页面
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        loginRunnable.start();
     }
 
     @Override
@@ -68,6 +79,7 @@ public class UserFragment extends Fragment {
 //        textView.setText(mParam1);
         SuperTextView stv_logout = view.findViewById(R.id.stv_logout);
         stv_logout.setOnSuperTextViewClickListener(superTextView1 -> {
+            logout();
             //置空密码即可
             //获取SharedPreferences对象，使用自定义类的方法来获取对象
             SharedPreferencesUtils helper = new SharedPreferencesUtils(getActivity(), "setting");
@@ -78,12 +90,18 @@ public class UserFragment extends Fragment {
             startActivity(intent);
         });
 
-        SuperTextView stv_account = view.findViewById(R.id.stv_account);
+        SuperTextView stv_account = view.findViewById(R.id.stv_my_account);
         stv_account.setOnSuperTextViewClickListener(superTextView -> {
-           Intent intent = new Intent(getActivity(), AccountActivity.class);
-           startActivity(intent);
+            startActivity(new Intent(getActivity(), AccountActivity.class));
         });
-
+        SuperTextView stv_my_sharing = view.findViewById(R.id.stv_my_sharing);
+        stv_my_sharing.setOnSuperTextViewClickListener(superTextView -> {
+            startActivity(new Intent(getActivity(), SharingActivity.class));
+        });
+        SuperTextView stv_my_parking = view.findViewById(R.id.stv_my_parking);
+        stv_my_parking.setOnSuperTextViewClickListener(superTextView -> {
+            startActivity(new Intent(getActivity(), ParkingActivity.class));
+        });
         return view;
     }
 

@@ -2,9 +2,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/orange_light</item>
-        <item name="colorPrimaryDark">@color/orange_light</item>
-        <item name="colorAccent">@color/orange_light</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="BaseStyle" parent="@android:style/Theme.Holo.Light">
@@ -19,6 +20,7 @@
         <item name="android:orientation">vertical</item>
         <item name="android:padding">1dp</item>
     </style>
+
     <style name="FindBottomStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30dp</item>
@@ -27,7 +29,8 @@
     </style>
 
     <!--加载对话窗-->
-    <style name="BaseDialog" parent="@android:style/Theme.Dialog"/>
+    <style name="BaseDialog" parent="@android:style/Theme.Dialog" />
+
     <style name="Theme.Light.LoadingDialog" parent="@style/BaseDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -40,8 +43,7 @@
     </style>
 
     <!--自定义View-material的样式-->
-    <style name="TextAppearance.MaterialCalendarWidget.Header"
-           parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="TextAppearance.MaterialCalendarWidget.Header" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -58,6 +60,15 @@
         <item name="android:singleLine">true</item>
         <item name="android:ellipsize">end</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--<style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />-->
+
+    <!--<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
 
 </resources>
 

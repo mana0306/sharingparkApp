@@ -40,15 +40,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginAfterActivity" />
         <activity android:name=".activity.RegisterActivity" />
         <activity android:name=".activity.MainActivity" />
 
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="sjGto9ElPHMzLG2ymgGrmF7U23hVhwqL" />
 
-        <activity android:name=".activity.AccountActivity"></activity>
+        <activity
+            android:name=".activity.AccountActivity"
+            android:label="@string/my_account"
+            android:parentActivityName=".activity.AccountActivity" />
+        <activity
+            android:name=".activity.BaseActivity"
+            android:label="@string/title_activity_base" />
+        <activity
+            android:name=".activity.SharingActivity"
+            android:label="@string/my_sharing"
+            android:parentActivityName=".activity.AccountActivity" />
+        <activity
+            android:name=".activity.ParkingActivity"
+            android:label="@string/my_parking"
+            android:parentActivityName=".activity.AccountActivity" />
+        <activity
+            android:name=".activity.AddSharingActivity"
+            android:label="@string/add_sharing"
+            android:parentActivityName=".activity.MainActivity" />
     </application>
 
 </manifest>

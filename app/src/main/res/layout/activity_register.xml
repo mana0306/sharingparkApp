@@ -15,9 +15,6 @@
         android:textColor="@android:color/white"
         android:textSize="30sp"
         />
-    <View android:layout_width="match_parent" android:layout_height="@dimen/dp_1"
-        android:background="@color/orange_main"
-        />
 
     <RelativeLayout
         android:layout_width="match_parent"

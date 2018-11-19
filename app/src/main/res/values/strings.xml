@@ -2,21 +2,27 @@
     <string name="app_name">共享停车位</string>
     <string name="api_ip_port">http://192.168.1.159:3000</string>
     <string name="username">用 户 名</string>
+    <string name="nickname">昵    称</string>
     <string name="password">密   码</string>
     <string name="password_confirm">确 认 密 码</string>
     <string name="phone">手 机 号</string>
+    <string name="credit">信 用 值</string>
     <string name="check_password">记住密码</string>
     <string name="check_login">自动登录</string>
     <string name="login">登   录</string>
     <string name="logout">注   销</string>
     <string name="register">注   册</string>
     <string name="loading">正在加载数据</string>
-    <string name="index">主   页</string>
 
     <string name="menu_sharing">共享停车位</string>
-    <string name="menu_parking">寻找停车位</string>
+    <string name="menu_index">主   页</string>
     <string name="menu_user">个人中心</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_sharing">共享我的停车位</string>
+
+    <string name="my_account">我的账号</string>
+    <string name="my_sharing">我的共享记录</string>
+    <string name="my_parking">我的停车记录</string>
+
+    <string name="title_activity_base">BaseActivity</string>
 </resources>

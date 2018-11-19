@@ -10,8 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lzj.its.sharingpark.MyApplication;
 import com.lzj.its.sharingpark.R;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by bruce on 2016/11/1.
@@ -19,21 +25,25 @@ import com.lzj.its.sharingpark.R;
  */
 
 public class BaseFragment extends Fragment {
-    public static BaseFragment newInstance(String info) {
-        Bundle args = new Bundle();
-        BaseFragment fragment = new BaseFragment();
-        args.putString("info", info);
-        fragment.setArguments(args);
-        return fragment;
+
+    protected OkHttpClient client;
+    protected MyApplication app;
+    protected String session;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        app = (MyApplication) getActivity().getApplication(); //获得我们的应用程序MyApplication;
+        OkHttpClient client0 = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .build();
+        app.setOkHttpClient(client0);
+        client = app.getOkHttpClient();
+        session = app.getS();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.fragment_base, null);
-        TextView tvInfo = view.findViewById(R.id.textView);
-        tvInfo.setText(getArguments().getString("info"));
-        tvInfo.setOnClickListener(v -> Snackbar.make(v, "Don't click me.please!.", Snackbar.LENGTH_SHORT).show());
-        return view;
+    public void showToast(String msg) {
+        getActivity().runOnUiThread(() -> Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show());
     }
 }

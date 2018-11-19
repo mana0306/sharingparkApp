@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:stv="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fg_user"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,10 +18,24 @@
 
             <com.allen.library.SuperTextView
                 stv:sDividerLineType="both"
-                android:id="@+id/stv_account"
+                android:id="@+id/stv_my_account"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                stv:sLeftTextString="帐号管理"
+                stv:sLeftTextString="@string/my_account"
+                />
+            <com.allen.library.SuperTextView
+                stv:sDividerLineType="both"
+                android:id="@+id/stv_my_sharing"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                stv:sLeftTextString="@string/my_sharing"
+                />
+            <com.allen.library.SuperTextView
+                stv:sDividerLineType="both"
+                android:id="@+id/stv_my_parking"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                stv:sLeftTextString="@string/my_parking"
                 />
 
             <com.allen.library.SuperTextView
@@ -35,4 +50,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

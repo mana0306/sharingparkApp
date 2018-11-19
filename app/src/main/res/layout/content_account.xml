@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.lzj.its.sharingpark.activity.AccountActivity"
+    tools:showIn="@layout/activity_account">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:stv="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ct_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.lzj.its.sharingpark.fragment.AccountFragment"
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_username"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            stv:sCenterTextString=""
+            stv:sCenterViewGravity="left_center"
+            stv:sLeftTextString="@string/username"
+            stv:sLeftViewGravity="left_center"
+            stv:sLeftViewWidth="80dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_nickname"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            stv:sCenterTextString=""
+            stv:sCenterViewGravity="left_center"
+            stv:sLeftTextString="@string/nickname"
+            stv:sLeftViewGravity="left_center"
+            stv:sLeftViewWidth="80dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_phone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            stv:sCenterTextString=""
+            stv:sCenterViewGravity="left_center"
+            stv:sLeftTextString="@string/phone"
+            stv:sLeftViewGravity="left_center"
+            stv:sLeftViewWidth="80dp" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_credit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            stv:sCenterTextString=""
+            stv:sCenterViewGravity="left_center"
+            stv:sLeftTextString="@string/credit"
+            stv:sLeftViewGravity="left_center"
+            stv:sLeftViewWidth="80dp" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
