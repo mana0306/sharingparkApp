@@ -14,6 +14,7 @@ import com.baidu.mapapi.map.BaiduMapOptions;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.SupportMapFragment;
+import com.baidu.mapapi.model.LatLng;
 import com.lzj.its.sharingpark.R;
 import com.lzj.its.sharingpark.activity.AddSharingActivity;
 
@@ -26,26 +27,38 @@ public class IndexFragment extends BaseFragment {
     SupportMapFragment map;
     BaiduMap mBaiduMap;
     private LocationClient mLocationClient = null;
-    private FloatingActionButton fab_account;
+    private FloatingActionButton fab_add_sharing;
+    private FloatingActionButton fab_my_location;
     public IndexFragment() {
         // Required empty public constructor
     }
 
     private void initView(View view){
-        fab_account = view.findViewById(R.id.fab_add_sharing);
+        fab_add_sharing = view.findViewById(R.id.fab_add_sharing);
+        fab_my_location = view.findViewById(R.id.fab_my_location);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MapStatus ms = new MapStatus.Builder().overlook(-20).zoom(15).build();
-        BaiduMapOptions bo = new BaiduMapOptions().mapStatus(ms)
+//        setContentView(R.layout.activity_fragment);
+        Intent intent = getActivity().getIntent();
+        MapStatus.Builder builder = new MapStatus.Builder();
+        if (intent.hasExtra("x") && intent.hasExtra("y")) {
+            // 当用intent参数时，设置中心点为指定点
+            Bundle b = intent.getExtras();
+            LatLng p = new LatLng(b.getDouble("y"), b.getDouble("x"));
+            builder.target(p);
+        }
+        builder.overlook(-20).zoom(15);
+        BaiduMapOptions bo = new BaiduMapOptions().mapStatus(builder.build())
                 .compassEnabled(false).zoomControlsEnabled(false);
         map = SupportMapFragment.newInstance(bo);
         FragmentManager manager = getActivity().getSupportFragmentManager();
+
         manager.beginTransaction().add(R.id.fg_index, map, "map_fragment").commit();
 
-        mBaiduMap = map.getBaiduMap();
+//        mBaiduMap = map.getBaiduMap();
         // 开启定位图层
 //        mBaiduMap.setMyLocationEnabled(true);
 
@@ -61,8 +74,15 @@ public class IndexFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_index, container, false);
         initView(view);
-        fab_account.setOnClickListener(view1 -> {
+        fab_add_sharing.setOnClickListener(view1 -> {
             startActivity(new Intent(getActivity(), AddSharingActivity.class));
+        });
+        fab_my_location.setOnClickListener(v -> {
+            /**
+             * @TODO
+             * GPS定位
+             * */
+
         });
         return view;
     }
