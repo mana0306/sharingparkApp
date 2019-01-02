@@ -47,10 +47,7 @@ public class UserFragment extends BaseFragment {
                         .build();
                 Response response = client.newCall(request).execute();
                 String responseData = response.body().string();
-                Headers headers = response.headers();
-                List<String> cookies = headers.values("Set-Cookie");
-                String session = cookies.get(0);
-                String s = session.substring(0, session.indexOf(";"));
+                String s = ";";
                 app.setS(s);
 
                 JSONObject jsonObject = new JSONObject(responseData);
