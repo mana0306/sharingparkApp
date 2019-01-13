@@ -6,15 +6,22 @@ package com.lzj.its.sharingpark.bean;
 
 public class SharingBean {
     private int shareID;
+
     private String position;
     private String more;
+
     private String beginTime;
     private String endTime;
+
+    private double positionA;
+    private double positionB;
+
     private int state;
     private int cost;
     private int stars;
-    private int credit;
-    private String phone;
+
+    private UserBean borrower;
+    private UserBean renter;
 
     public int getShareID() {
         return shareID;
@@ -72,27 +79,43 @@ public class SharingBean {
         this.stars = stars;
     }
 
-    public int getCredit() {
-        return credit;
-    }
-
-    public void setCredit(int credit) {
-        this.credit = credit;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getMore() {
         return more;
     }
 
     public void setMore(String more) {
         this.more = more;
+    }
+
+    public double getPositionA() {
+        return positionA;
+    }
+
+    public void setPositionA(double positionA) {
+        this.positionA = positionA;
+    }
+
+    public double getPositionB() {
+        return positionB;
+    }
+
+    public void setPositionB(double positionB) {
+        this.positionB = positionB;
+    }
+
+    public UserBean getBorrower() {
+        return borrower;
+    }
+
+    public void setBorrower(UserBean borrower) {
+        this.borrower = borrower;
+    }
+
+    public UserBean getRenter() {
+        return renter;
+    }
+
+    public void setRenter(UserBean renter) {
+        this.renter = renter;
     }
 }

@@ -3,6 +3,7 @@ package com.lzj.its.sharingpark;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.lljjcoder.style.citylist.utils.CityListLoader;
 
 import okhttp3.OkHttpClient;
 
@@ -17,7 +18,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(this);
+        CityListLoader.getInstance().loadCityData(this);
     }
+
 
     public String getName() {
         return NAME;

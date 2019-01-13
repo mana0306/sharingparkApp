@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ChoosePositionActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:stv="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.ihidea.as.citypicker.activity.CitypickerListActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="151dp">
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_city_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            stv:sCenterTextString="城市:" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_city"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_city_title"
+            stv:sLeftTextString="请选择城市..." />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_position_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_city"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            stv:sCenterTextString="详细地址:" />
+
+        <AutoCompleteTextView
+            android:id="@+id/act_position"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_city"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@+id/stv_position_title"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_begin_time_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_position_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="开始时间:" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_begin_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/act_position"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_begin_time_title"
+            android:padding="@dimen/dp_5"
+            stv:sLeftTextString="请选择时间..." />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_end_time_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_begin_time_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="结束时间:" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_end_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_begin_time_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_end_time_title"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sLeftTextString="请选择时间..." />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_cost_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_end_time_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="花费信用:" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_cost"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_end_time_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_cost_title"
+            android:padding="@dimen/dp_5"
+            android:singleLine="true"
+            android:textSize="16sp"
+            stv:sLeftTextString="请设置花费..."/>
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_more_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_cost_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="备注:" />
+
+        <EditText
+            android:id="@+id/et_more"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_cost"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_more_title"
+            android:singleLine="true"
+            android:padding="@dimen/dp_5"
+            android:hint="如具体车位编号..."
+            android:textSize="16sp" />
+
+        <com.allen.library.SuperButton
+            android:id="@+id/sbt_sharing"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_60"
+            android:layout_marginStart="@dimen/dp_60"
+            android:layout_marginEnd="@dimen/dp_60"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="添加"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small" />
+
+    </RelativeLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

@@ -63,6 +63,7 @@ public class LoginActivity extends Activity
                 .tag(TAG) // 全局tag
                 .build();
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+
         app = (MyApplication) getApplication(); //获得我们的应用程序MyApplication;
         OkHttpClient client0 = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)

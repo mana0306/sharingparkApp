@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fg_index"
+    xmlns:stv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+    <fragment android:name="com.baidu.mapapi.map.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        class="com.baidu.mapapi.map.SupportMapFragment" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_height_normal"
+        android:layout_marginLeft="@dimen/dp_1"
+        android:layout_marginRight="@dimen/dp_1"
+        android:layout_marginTop="@dimen/dp_1">
+
+        <TextView
+            android:id="@+id/et_position"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_gravity="center"
+            android:background="@color/background"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/text_size_large" />
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_sharing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_location"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_edit"
+        app:fabSize="auto"
+        app:backgroundTint="#c6c3c3"
+        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_my_location"
@@ -20,9 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_compass" />
-
-
-
-
+        app:srcCompat="@android:drawable/ic_menu_compass"
+        app:fabSize="mini"
+        app:backgroundTint="#c6c3c3"
+        />
 </FrameLayout>

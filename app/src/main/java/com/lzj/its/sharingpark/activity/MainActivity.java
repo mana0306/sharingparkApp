@@ -1,9 +1,13 @@
 package com.lzj.its.sharingpark.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 
 
 import com.lzj.its.sharingpark.R;
@@ -21,6 +25,8 @@ public class MainActivity extends BaseActivity {
     private MenuItem menuItem;
     private BottomNavigationView bottomNavigationView;
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +71,13 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        //禁止ViewPager滑动
-//        viewPager.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return true;
-//            }
-//        });
+        // 禁止ViewPager滑动
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
 
         setupViewPager(viewPager);
     }

@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context="com.lzj.its.sharingpark.activity.AddSharingActivity">
 
+    <TextView
+        android:id="@+id/tv_position"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_share_id"
+        android:text="@string/info_position" />
+
+    <TextView
+        android:id="@+id/tv_begin_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_position"
+        android:text="@string/info_begin_time" />
+    <TextView
+        android:id="@+id/tv_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_begin_time"
+        android:text="@string/info_end_time" />
+    <TextView
+        android:id="@+id/tv_position_A"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_end_time"
+        android:text="@string/info_end_time" />
+    <TextView
+        android:id="@+id/tv_position_B"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_position_A"
+        android:text="@string/info_end_time" />
+
+    <TextView
+        android:id="@+id/tv_more"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_position_B"
+        android:text="@string/info_more" />
+
+    <TextView
+        android:id="@+id/tv_cost"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        app:layout_constraintTop_toBottomOf="@id/tv_more"
+        android:text="@string/info_cost" />
+
 </android.support.constraint.ConstraintLayout>

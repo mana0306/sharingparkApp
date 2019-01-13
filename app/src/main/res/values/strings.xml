@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">共享停车位</string>
-    <string name="api_ip_port">http://192.168.1.115:3000</string>
+    <string name="api_ip_port">http://192.168.1.159:3000</string>
     <string name="username">用 户 名</string>
     <string name="nickname">昵    称</string>
     <string name="password">密   码</string>
@@ -24,5 +24,21 @@
     <string name="my_sharing">我的共享记录</string>
     <string name="my_parking">我的停车记录</string>
 
+    <string name="info_position">地址信息：%s</string>
+    <string name="info_begin_time">开始时间：%s</string>
+    <string name="info_end_time">结束时间：%s</string>
+    <string name="info_share_id">共享编号：%s</string>
+    <string name="info_state">当前状态：%s</string>
+    <string name="info_cost">所需花费：%s</string>
+    <string name="info_borrower_id">共享人编号：%s</string>
+    <string name="info_borrower_name">共享人姓名：%s</string>
+    <string name="info_borrower_credit">共享人信用：%s</string>
+    <string name="info_borrower_phone">共享人电话：%s</string>
+    <string name="info_more">更多信息：%s</string>
+
+    <string name="btn_use">使用</string>
+    <string name="btn_cancel">关闭</string>
+
     <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_share_info">车位详情</string>
 </resources>
