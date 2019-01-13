@@ -44,7 +44,10 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import okhttp3.FormBody;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import static android.support.constraint.Constraints.TAG;
@@ -248,9 +251,14 @@ public class IndexFragment extends BaseFragment {
             double lat = mLocation.getLatitude();
             double lon = mLocation.getLongitude();
             try {
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("positionA", String.valueOf(lat))
+                        .add("positionB", String.valueOf(lon))
+                        .build();
                 Request request = new Request.Builder()
                         .addHeader("cookie", session)
-                        .url(getString(R.string.api_ip_port) + "/search?positionA=" + lat + "&positionB=" + lon)
+                        .post(requestBody)
+                        .url(getString(R.string.api_ip_port) + "/search")
                         .build();
                 Response response = client.newCall(request).execute();
                 String responseData = response.body().string();

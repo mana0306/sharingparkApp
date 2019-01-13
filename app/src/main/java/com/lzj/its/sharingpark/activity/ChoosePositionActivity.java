@@ -161,13 +161,14 @@ public class ChoosePositionActivity extends BaseActivity implements
                 RequestBody requestBody = new FormBody.Builder()
                         .add("position", position)
                         .add("positionA", String.valueOf(positionA))
-                        .add("positionA", String.valueOf(positionB))
+                        .add("positionB", String.valueOf(positionB))
                         .add("beginTime", begin_time)
                         .add("endTime", end_time)
                         .add("cost", String.valueOf(cost))
                         .add("more", more)
                         .build();
                 Request request = new Request.Builder()
+                        .addHeader("cookie", session)
                         // 指定访问的服务器地址是电脑本机
                         .url(getString(R.string.api_ip_port) + "/createShare")
                         .post(requestBody)
@@ -197,7 +198,7 @@ public class ChoosePositionActivity extends BaseActivity implements
     }
 
     private void addSharing(){
-        String position = poiInfo.getAddress();
+        String position = poiInfo.getName();
         double positionA = poiInfo.getLocation().latitude;
         double positionB = poiInfo.getLocation().longitude;
         String begin_time = stv_begin_time.getLeftString();
