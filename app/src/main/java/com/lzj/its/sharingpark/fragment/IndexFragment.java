@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.allen.library.SuperTextView;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 
@@ -32,11 +33,9 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.SupportMapFragment;
 import com.baidu.mapapi.model.LatLng;
-import com.lljjcoder.style.citylist.CityListSelectActivity;
 import com.lzj.its.sharingpark.InfoWindowHolder;
 import com.lzj.its.sharingpark.R;
 import com.lzj.its.sharingpark.activity.AddSharingActivity;
-import com.lzj.its.sharingpark.activity.ChoosePositionActivity;
 import com.lzj.its.sharingpark.activity.ShareInfoActivity;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
@@ -64,7 +63,7 @@ public class IndexFragment extends BaseFragment {
     private LocationClient mLocationClient = null;
     private FloatingActionButton fab_add_sharing;
     private FloatingActionButton fab_my_location;
-    private TextView et_position;
+    private SuperTextView stv_position;
     //    private TextView mTvAddress;
     private BDLocation mLocation = null;
 
@@ -87,12 +86,11 @@ public class IndexFragment extends BaseFragment {
         fab_add_sharing = view.findViewById(R.id.fab_add_sharing);
         fab_my_location = view.findViewById(R.id.fab_my_location);
 //        mTvAddress = view.findViewById(R.id.tvAddress);
-        et_position = view.findViewById(R.id.et_position);
+        stv_position = view.findViewById(R.id.stv_position);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Logger.i("onCreate");
         super.onCreate(savedInstanceState);
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
                 .tag(TAG) // 全局tag
@@ -123,7 +121,7 @@ public class IndexFragment extends BaseFragment {
         //开启热力图
         //mBaiduMap.setBaiduHeatMapEnabled(true);
         // 开启定位图层
-//        mBaiduMap.setMyLocationEnabled(true);
+        mBaiduMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(getActivity().getApplicationContext());  //声明LocationClient类
         //配置定位SDK参数
         initLocation();
@@ -184,15 +182,15 @@ public class IndexFragment extends BaseFragment {
                 if (location.getLocType() == BDLocation.TypeGpsLocation) {
                     // GPS定位结果
                     Toast.makeText(getActivity(), location.getAddrStr(), Toast.LENGTH_SHORT).show();
-                    et_position.setText(location.getAddrStr());
+                    stv_position.setCenterString(location.getAddrStr());
                 } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
                     // 网络定位结果
                     Toast.makeText(getActivity(), location.getAddrStr(), Toast.LENGTH_SHORT).show();
-                    et_position.setText(location.getAddrStr());
+                    stv_position.setCenterString(location.getAddrStr());
                 } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
                     // 离线定位结果
                     Toast.makeText(getActivity(), location.getAddrStr(), Toast.LENGTH_SHORT).show();
-                    et_position.setText(location.getAddrStr());
+                    stv_position.setCenterString(location.getAddrStr());
                 } else if (location.getLocType() == BDLocation.TypeServerError) {
                     Toast.makeText(getActivity(), "服务器错误，请检查", Toast.LENGTH_SHORT).show();
                 } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
@@ -200,6 +198,7 @@ public class IndexFragment extends BaseFragment {
                 } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
                     Toast.makeText(getActivity(), "手机模式错误，请检查是否飞行", Toast.LENGTH_SHORT).show();
                 }
+                mBaiduMap.clear();
                 getAvaSharingByPostion();
             }
 
@@ -223,6 +222,7 @@ public class IndexFragment extends BaseFragment {
             holder.tv_position = share_info.findViewById(R.id.tv_position);
             holder.tv_begin_time = share_info.findViewById(R.id.tv_begin_time);
             holder.tv_end_time = share_info.findViewById(R.id.tv_end_time);
+            holder.tv_cost = share_info.findViewById(R.id.tv_cost);
             holder.btn_use = share_info.findViewById(R.id.btn_use);
             holder.btn_cancel = share_info.findViewById(R.id.btn_cancel);
             share_info.setTag(holder);
@@ -231,9 +231,10 @@ public class IndexFragment extends BaseFragment {
         holder = (InfoWindowHolder) share_info.getTag();
 
         holder.share_id = bundle.getInt("shareID");
-        holder.tv_position.setText(String.format(getString(R.string.info_position), bundle.getString("position")));
-        holder.tv_begin_time.setText(String.format(getString(R.string.info_begin_time), bundle.getString("beginTime")));
-        holder.tv_end_time.setText(String.format(getString(R.string.info_end_time), bundle.getString("endTime")));
+        holder.tv_position.setText(String.format(getString(R.string.info_position)+"%s", bundle.getString("position")));
+        holder.tv_begin_time.setText(String.format(getString(R.string.info_begin_time)+"%s", bundle.getString("beginTime")));
+        holder.tv_end_time.setText(String.format(getString(R.string.info_end_time)+"%s", bundle.getString("endTime")));
+        holder.tv_cost.setText(String.format(getString(R.string.info_cost)+"%d", bundle.getInt("cost")));
 
         holder.btn_use.setTag(bundle.getInt("shareID"));
         holder.btn_use.setOnClickListener(v -> {
@@ -266,6 +267,7 @@ public class IndexFragment extends BaseFragment {
                 Integer success = jsonObject.getInt("success");
                 if (success == 1) {
                     JSONArray shares = jsonObject.getJSONArray("shares");
+
                     for (int i = 0; i < shares.length(); i++) {
                         JSONObject the_share = (JSONObject) shares.get(i);
                         LatLng latLng = new LatLng(
@@ -276,8 +278,9 @@ public class IndexFragment extends BaseFragment {
                         BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.icon_marker);
                         Bundle mBundle = new Bundle();
                         mBundle.putString("position", the_share.getString("position"));
-                        mBundle.putString("beginTime", the_share.getString("beginTime"));
-                        mBundle.putString("endTime", the_share.getString("endTime"));
+                        mBundle.putString("beginTime", the_share.getString("beginTimeString"));
+                        mBundle.putString("endTime", the_share.getString("endTimeString"));
+                        mBundle.putInt("cost", the_share.getInt("cost"));
                         mBundle.putInt("shareID", the_share.getInt("shareID"));
 //                        mBundle.putInt();
                         //准备 marker option 添加 marker 使用
@@ -316,35 +319,24 @@ public class IndexFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        Logger.i("onStart");
-//        initMap();
-
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Logger.i("test");
-//  map = (SupportMapFragment)(getActivity().getSupportFragmentManager().findFragmentById(R.id.map));
-//        mBaiduMap = mMapView.getMap();
         initMap();
-
-
-//        Logger.i("test");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Logger.i("onCreateView");
-
         View view = inflater.inflate(R.layout.fragment_index, container, false);
 
         initView(view);
         fab_add_sharing.setOnClickListener(view1 -> {
 //            Intent intent = new Intent(getActivity(), CityListSelectActivity.class);
 //            startActivityForResult(intent, CityListSelectActivity.CITY_SELECT_RESULT_FRAG);
-            startActivity(new Intent(getActivity(), ChoosePositionActivity.class));
+            startActivity(new Intent(getActivity(), AddSharingActivity.class));
         });
         fab_my_location.setOnClickListener(v -> {
             //开启定位

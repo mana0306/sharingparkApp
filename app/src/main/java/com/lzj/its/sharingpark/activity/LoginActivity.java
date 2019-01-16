@@ -247,7 +247,6 @@ public class LoginActivity extends Activity
                         .add("userName", getAccount())
                         .add("password", getPassword())
                         .build();
-                Logger.i(getString(R.string.api_ip_port));
                 Request request = new Request.Builder()
                         // 指定访问的服务器地址是电脑本机
                         .url(getString(R.string.api_ip_port) + "/login")

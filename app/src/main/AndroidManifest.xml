@@ -52,7 +52,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:label="@string/menu_register"/>
         <activity android:name=".activity.MainActivity" />
 
         <service
@@ -62,7 +64,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="sjGto9ElPHMzLG2ymgGrmF7U23hVhwqL" />
+            android:value="eQuGTM9WUqp7dNaslb4OlHUGmDi4B0v1" />
         <!-- //LP-sjGto9ElPHMzLG2ymgGrmF7U23hVhwqL
          eQuGTM9WUqp7dNaslb4OlHUGmDi4B0v1-->
         <activity
@@ -81,14 +83,11 @@
             android:label="@string/my_parking"
             android:parentActivityName=".activity.AccountActivity" />
         <activity
-            android:name=".activity.AddSharingActivity"
-            android:label="@string/add_sharing"
-            android:parentActivityName=".activity.MainActivity" />
-        <activity
             android:name=".activity.ShareInfoActivity"
             android:label="@string/title_activity_share_info"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ChoosePositionActivity"></activity>
+        <activity android:name=".activity.AddSharingActivity"
+            android:label="@string/menu_add_sharing" />
     </application>
 
 </manifest>

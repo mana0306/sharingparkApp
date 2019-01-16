@@ -1,5 +1,6 @@
 package com.lzj.its.sharingpark.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,7 +27,7 @@ public class AccountActivity extends BaseActivity {
         stv_nickname = findViewById(R.id.stv_nickname);
         stv_phone = findViewById(R.id.stv_phone);
         stv_credit = findViewById(R.id.stv_credit);
-        fab_account = findViewById(R.id.fab_account);
+//        fab_account = findViewById(R.id.fab_account);
     }
 
     private void initUser() {
@@ -55,7 +56,8 @@ public class AccountActivity extends BaseActivity {
                     });
 
                 } else {
-                    showToast(jsonObject.getString("message"));
+                    Intent intent = new Intent(AccountActivity.this,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -70,7 +72,8 @@ public class AccountActivity extends BaseActivity {
         initViews();
         initUser();
 
-        fab_account.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+//        fab_account.setOnClickListener(view -> {
+//
+//        });
     }
 }

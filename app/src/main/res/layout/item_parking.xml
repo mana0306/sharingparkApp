@@ -52,21 +52,19 @@
         stv:sLeftViewGravity="right_center"
         stv:sCenterViewGravity="left_center"
         stv:sLeftTopTextString="车位地址:"
-        stv:sCenterTopTextString="下下下下下下下下下下下下下下寻"
+        stv:sCenterTopTextString=""
         stv:sDividerLineType="none"
         stv:sUseRipple="false" />
     <com.allen.library.SuperTextView
         android:id="@+id/cost_state"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/item_height_litter"
+        android:layout_height="@dimen/item_height_medium"
         stv:sLeftBottomLines="1"
         stv:sLeftBottomMaxEms="100"
         stv:sLeftViewGravity="right_center"
         stv:sCenterViewGravity="left_center"
         stv:sLeftTopTextString="停车费用:"
-        stv:sCenterTopTextString="5元/时"
-        stv:sRightTopTextString="待使用"
-        stv:sRightTopTextColor="@color/blue"
+        stv:sCenterTopTextString=""
         stv:sDividerLineType="bottom"
         stv:sUseRipple="false" />
 </LinearLayout>

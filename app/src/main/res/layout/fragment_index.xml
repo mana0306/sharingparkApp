@@ -19,14 +19,13 @@
         android:layout_marginRight="@dimen/dp_1"
         android:layout_marginTop="@dimen/dp_1">
 
-        <TextView
-            android:id="@+id/et_position"
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_position"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_32"
+            android:layout_height="@dimen/dp_40"
             android:layout_gravity="center"
-            android:background="@color/background"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/text_size_large" />
+            android:padding="@dimen/dp_5"
+            android:textSize="@dimen/text_size_medium" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -37,7 +36,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_menu_edit"
         app:fabSize="auto"
-        app:backgroundTint="#c6c3c3"
         />
 
     <android.support.design.widget.FloatingActionButton
@@ -48,6 +46,5 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_menu_compass"
         app:fabSize="mini"
-        app:backgroundTint="#c6c3c3"
         />
 </FrameLayout>

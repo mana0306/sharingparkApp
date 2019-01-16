@@ -1,5 +1,6 @@
 package com.lzj.its.sharingpark.adapter;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Color;
 
@@ -22,7 +23,6 @@ public class SharingAdapter extends CommonAdapter<SharingBean> {
     public SharingAdapter(Context context, List<SharingBean> datas) {
 
         super(context, R.layout.item_sharing, datas);
-        Logger.i(datas.toString());
         mContext = context;
     }
 
@@ -46,10 +46,21 @@ public class SharingAdapter extends CommonAdapter<SharingBean> {
             case 2:
                 state = "已使用";
                 color = Color.BLUE;
+                break;
+            case 3:
+                state = "已撤销";
+                color = Color.GRAY;
+                break;
         }
         ((SuperTextView) holder.getView(R.id.cost_state))
                 .setCenterTopString(Integer.toString(sharingBean.getCost())+"信誉点")
-                .setRightTopTextColor(color)
-                .setRightTopString(state);
+                .setRightTextColor(color)
+                .setRightString(state);
+        if (state.equals("已使用")){
+            ((SuperTextView) holder.getView(R.id.cost_state))
+                    .setLeftString("用户评分:")
+                    .setCenterString(sharingBean.getStars()+"星");
+        }
+
     }
 }

@@ -14,6 +14,7 @@ public class InfoWindowHolder {
     public TextView tv_position;
     public TextView tv_begin_time;
     public TextView tv_end_time;
+    public TextView tv_cost;
     public Button btn_use;
     public Button btn_cancel;
 
