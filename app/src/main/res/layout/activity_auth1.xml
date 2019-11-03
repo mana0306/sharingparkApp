@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AuthActivity1">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:stv="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.ihidea.as.citypicker.activity.CitypickerListActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="151dp">
+        
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/car_brand1"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="车辆品牌:" />
+        <EditText
+            android:id="@+id/car_brand"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/car_brand1"
+            android:singleLine="true"
+            android:padding="@dimen/dp_5"
+            android:hint="请输入车辆品牌"
+            android:textSize="16sp"
+            />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/car_model1"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/car_brand1"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="车辆型号:" />
+        <EditText
+            android:id="@+id/car_model"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/car_brand"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/car_model1"
+            android:singleLine="true"
+            android:padding="@dimen/dp_5"
+            android:hint="请输入车辆型号"
+            android:textSize="16sp"
+            />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/car_id1"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/car_model1"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="车牌号:" />
+        <EditText
+            android:id="@+id/car_id"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/car_model"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/car_id1"
+            android:singleLine="true"
+            android:padding="@dimen/dp_5"
+            android:hint="请输入正确车牌号"
+            android:textSize="16sp"
+            />
+
+            
+        <com.allen.library.SuperButton
+            android:id="@+id/sbt_sharing"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:background="@drawable/btn_orange_selector"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_60"
+            android:layout_marginStart="@dimen/dp_60"
+            android:layout_marginEnd="@dimen/dp_60"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="确定"
+            android:paddingTop="@dimen/margin_small"
+            android:paddingBottom="@dimen/margin_small" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

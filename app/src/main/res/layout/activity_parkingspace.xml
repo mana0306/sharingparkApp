@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:stv="http://schemas.android.com/apk/res-auto"
+    tools:context="com.lzj.its.sharingpark.activity.ParkingspaceActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_end_use"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/item_height_small"
+            android:padding="@dimen/dp_10"
+            stv:sLeftBottomLines="1"
+            stv:sLeftBottomMaxEms="100"
+            stv:sCenterViewGravity="center"
+            stv:sCenterTextString="Tips：单击待使用记录可撤销，长按已完成订单可申诉"
+            stv:sCenterTextColor="@color/blue"
+            stv:sDividerLineType="both"
+            stv:sUseShape="true"
+            stv:sShapeCornersRadius="@dimen/dp_10"
+            stv:sShapeStrokeWidth="@dimen/dp_1"
+            stv:sShapeStrokeColor="@color/line"
+            stv:sUseRipple="true" />
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@id/stv_end_use" >
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

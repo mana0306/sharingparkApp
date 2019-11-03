@@ -12,6 +12,10 @@ import com.lzj.its.sharingpark.activity.AccountActivity;
 import com.lzj.its.sharingpark.activity.LoginActivity;
 import com.lzj.its.sharingpark.activity.ParkingActivity;
 import com.lzj.its.sharingpark.activity.SharingActivity;
+import com.lzj.its.sharingpark.activity.AuthActivity1;
+import com.lzj.its.sharingpark.activity.AuthActivity2;
+import com.lzj.its.sharingpark.activity.CarActivity;
+import com.lzj.its.sharingpark.activity.ParkingspaceActivity;
 import com.lzj.its.sharingpark.util.SharedPreferencesUtils;
 
 import org.json.JSONObject;
@@ -26,6 +30,8 @@ import okhttp3.Response;
 
 public class UserFragment extends BaseFragment {
 
+    String mycar;
+    String myparkingspace;
     public UserFragment() {
         // Required empty public constructor
     }
@@ -34,8 +40,10 @@ public class UserFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // initUser();
     }
 
+    
     private void logout() {
         Thread loginRunnable = new Thread(() -> {
             try {
@@ -90,6 +98,14 @@ public class UserFragment extends BaseFragment {
         SuperTextView stv_account = view.findViewById(R.id.stv_my_account);
         stv_account.setOnSuperTextViewClickListener(superTextView -> {
             startActivity(new Intent(getActivity(), AccountActivity.class));
+        });             
+        SuperTextView stv_auth1 = view.findViewById(R.id.stv_auth1);
+        stv_auth1.setOnSuperTextViewClickListener(superTextView -> {
+            startActivity(new Intent(getActivity(), AuthActivity1.class));
+        });
+        SuperTextView stv_auth2 = view.findViewById(R.id.stv_auth2);
+        stv_auth2.setOnSuperTextViewClickListener(superTextView -> {
+            startActivity(new Intent(getActivity(), AuthActivity2.class));
         });
         SuperTextView stv_my_sharing = view.findViewById(R.id.stv_my_sharing);
         stv_my_sharing.setOnSuperTextViewClickListener(superTextView -> {

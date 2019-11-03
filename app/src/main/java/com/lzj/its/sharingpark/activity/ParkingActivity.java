@@ -67,6 +67,7 @@ public class ParkingActivity extends BaseActivity implements SwipeRefreshLayout.
                         .add("reason", reason)
                         .add("stars", String.valueOf(stars))
                         .build();
+                //向服务器发送请求
                 Request request = new Request.Builder()
                         .addHeader("cookie", session)
                         .url(getString(R.string.api_ip_port) + "/share/"+shareID+"/windup")
@@ -91,6 +92,7 @@ public class ParkingActivity extends BaseActivity implements SwipeRefreshLayout.
     private void getData() {
         new Thread(() -> {
             try {
+                //向服务器发送请求
                 Request request = new Request.Builder()
                         .addHeader("cookie", session)
                         .url(getString(R.string.api_ip_port) + "/rented")

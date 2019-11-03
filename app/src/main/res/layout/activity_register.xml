@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="#fff"
     android:orientation="vertical">
+
+    <!--头部注册 -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -34,6 +36,8 @@
             android:src="@drawable/icon_account"
             tools:ignore="ContentDescription" />
 
+
+        <!--用户名 et_account-->
         <EditText
             android:id="@+id/et_account"
             android:layout_width="match_parent"
@@ -78,6 +82,7 @@
             android:src="@drawable/icon_pw"
             tools:ignore="ContentDescription" />
 
+        <!--密码 et_password-->
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
@@ -130,6 +135,7 @@
             android:src="@drawable/icon_pw"
             tools:ignore="ContentDescription" />
 
+        <!--确认密码 et_password_confirm-->
         <EditText
             android:id="@+id/et_password_confirm"
             android:layout_width="match_parent"
@@ -183,6 +189,7 @@
             android:src="@drawable/icon_phone"
             tools:ignore="ContentDescription" />
 
+        <!--手机号 et_phone-->
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
@@ -210,6 +217,7 @@
             android:background="@color/orange_light" />
     </RelativeLayout>
 
+    <!--底部注册 -->
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"

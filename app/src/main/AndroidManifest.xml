@@ -64,7 +64,7 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="eQuGTM9WUqp7dNaslb4OlHUGmDi4B0v1" />
+            android:value="qWClvhh7Weh8sncq5Yjx6yXd7lBHF9Bl" />
         <!-- //LP-sjGto9ElPHMzLG2ymgGrmF7U23hVhwqL
          eQuGTM9WUqp7dNaslb4OlHUGmDi4B0v1-->
         <activity
@@ -88,6 +88,19 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.AddSharingActivity"
             android:label="@string/menu_add_sharing" />
+        <activity android:name=".activity.AuthActivity1"
+            android:label="@string/menu_auth1" 
+            android:parentActivityName=".activity.AccountActivity" />
+        <activity android:name=".activity.AuthActivity2"
+            android:label="@string/menu_auth2" 
+            android:parentActivityName=".activity.AccountActivity" />
+        <activity
+            android:name=".activity.ParkingspaceActivity"
+            android:label="@string/my_parkingspace"
+            android:parentActivityName=".activity.AccountActivity" />
+        <activity android:name=".activity.CarActivity"
+            android:label="@string/my_car" 
+            android:parentActivityName=".activity.AccountActivity" />
     </application>
 
 </manifest>

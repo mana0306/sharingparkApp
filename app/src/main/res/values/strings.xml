@@ -21,10 +21,14 @@
     <string name="menu_register">注册用户</string>
     <string name="menu_login">用户登录</string>
     <string name="menu_add_sharing">共享我的停车位</string>
+    <string name="menu_auth1">车主身份认证</string>
+    <string name="menu_auth2">业主身份认证</string>
 
     <string name="my_account">我的账号</string>
     <string name="my_sharing">我的共享记录</string>
     <string name="my_parking">我的停车记录</string>
+    <string name="my_parkingspace">停车位信息</string>
+    <string name="my_car">车辆信息</string>
 
     <string name="info_position">地址信息:</string>
     <string name="info_begin_time">开始时间:</string>

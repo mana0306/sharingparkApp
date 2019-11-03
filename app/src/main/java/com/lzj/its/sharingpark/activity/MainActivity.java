@@ -33,16 +33,16 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         viewPager = findViewById(R.id.viewpager);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);//判断点击按钮
         //默认 >3 的选中效果会影响ViewPager的滑动切换时的效果，故利用反射去掉
 //        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 item -> {
                     switch (item.getItemId()) {
-                        case R.id.item_index:
+                        case R.id.item_index://点击“主页“
                             viewPager.setCurrentItem(0);
                             break;
-                        case R.id.item_user:
+                        case R.id.item_user://点击”个人中心“
                             viewPager.setCurrentItem(1);
                             break;
                     }

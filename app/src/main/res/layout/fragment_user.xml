@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>            <!--用户中心界面-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:stv="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fg_user"
@@ -16,36 +16,60 @@
             android:orientation="vertical"
             android:paddingTop="20dp">
 
+        <!--我的账号-stv_my_account -->
             <com.allen.library.SuperTextView
                 stv:sDividerLineType="both"
                 android:id="@+id/stv_my_account"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                stv:sLeftTextString="@string/my_account"
+                stv:sLeftTextString="我的账号"
                 />
+            <!--车辆信息-stv_my_identity_carowner-->
+            <com.allen.library.SuperTextView
+                stv:sDividerLineType="both"
+                android:id="@+id/stv_auth1"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                stv:sLeftTextString="车辆信息"
+                />
+
+            <!--停车位信息stv_my_identity_propriet -->
+            <com.allen.library.SuperTextView
+                stv:sDividerLineType="both"
+                android:id="@+id/stv_auth2"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                stv:sLeftTextString="停车位信息"
+                />
+
+            <!--我的共享记录-stv_my_sharing-->
             <com.allen.library.SuperTextView
                 stv:sDividerLineType="both"
                 android:id="@+id/stv_my_sharing"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                stv:sLeftTextString="@string/my_sharing"
+                stv:sLeftTextString="我的共享记录"
                 />
+
+            <!--我的停车记录-stv_my_parking-->
             <com.allen.library.SuperTextView
                 stv:sDividerLineType="both"
                 android:id="@+id/stv_my_parking"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                stv:sLeftTextString="@string/my_parking"
+                stv:sLeftTextString="我的停车记录"
                 />
 
+            <!--退出登录-stv_logout-->
             <com.allen.library.SuperTextView
                 android:id="@+id/stv_logout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 stv:sDividerLineType="both"
-                stv:sLeftTextString="@string/logout"
+                stv:sLeftTextString="退出登录"
                 />
+
 
         </LinearLayout>
     </ScrollView>

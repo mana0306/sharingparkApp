@@ -35,6 +35,8 @@
             android:src="@drawable/icon_account"
             tools:ignore="ContentDescription" />
 
+
+        <!--用户名  et_account-->
         <EditText
             android:id="@+id/et_account"
             android:layout_width="match_parent"
@@ -79,6 +81,7 @@
             android:src="@drawable/icon_pw"
             tools:ignore="ContentDescription" />
 
+        <!--密码  et_password-->
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
@@ -147,6 +150,8 @@
             android:textColor="@color/top_bar_normal_bg" android:checked="false"/>
 
     </LinearLayout>
+
+    <!--登录按钮  btn_login-->
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
@@ -160,6 +165,8 @@
         android:background="@drawable/btn_orange_selector"
         android:textColor="@android:color/white"
         android:textSize="@dimen/text_size_normal"/>
+
+    <!--注册按钮  btn_register-->
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.lzj.its.sharingpark.activity.AccountActivity"
-    tools:showIn="@layout/activity_account">
+    tools:context="com.lzj.its.sharingpark.activity.CarActivity"
+    tools:showIn="@layout/activity_mycar">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:stv="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -18,42 +18,32 @@
         android:paddingTop="20dp">
 
         <com.allen.library.SuperTextView
-            android:id="@+id/stv_username"
+            android:id="@+id/stv_carbrand"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             stv:sCenterTextString=""
             stv:sCenterViewGravity="left_center"
-            stv:sLeftTextString="用户名："
+            stv:sLeftTextString="车辆品牌："
             stv:sLeftViewGravity="left_center"
             stv:sLeftViewWidth="80dp" />
 
         <com.allen.library.SuperTextView
-            android:id="@+id/stv_nickname"
+            android:id="@+id/stv_carmodel"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             stv:sCenterTextString=""
             stv:sCenterViewGravity="left_center"
-            stv:sLeftTextString="昵称："
+            stv:sLeftTextString="车辆型号："
             stv:sLeftViewGravity="left_center"
             stv:sLeftViewWidth="80dp" />
 
         <com.allen.library.SuperTextView
-            android:id="@+id/stv_phone"
+            android:id="@+id/stv_carid"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             stv:sCenterTextString=""
             stv:sCenterViewGravity="left_center"
-            stv:sLeftTextString="手机号："
-            stv:sLeftViewGravity="left_center"
-            stv:sLeftViewWidth="80dp" />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_credit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            stv:sCenterTextString=""
-            stv:sCenterViewGravity="left_center"
-            stv:sLeftTextString="信用值："
+            stv:sLeftTextString="车牌号："
             stv:sLeftViewGravity="left_center"
             stv:sLeftViewWidth="80dp" />
     </LinearLayout>

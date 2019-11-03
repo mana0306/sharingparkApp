@@ -56,7 +56,7 @@ public class LoginActivity extends Activity
     private LoadingDialog mLoadingDialog; //显示正在加载的对话框
 
 
-    @Override
+    @Override/** 当活动第一次被创建时调用onCreate */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
@@ -72,7 +72,7 @@ public class LoginActivity extends Activity
         app.setOkHttpClient(client0);
         client = app.getOkHttpClient();
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login);//选择关联的布局文件 .xml中
         initViews();
         setupEvents();
         initData();
@@ -83,10 +83,10 @@ public class LoginActivity extends Activity
 
 
         //判断用户第一次登陆
-        if (firstLogin()) {
-            checkBox_password.setChecked(false);//取消记住密码的复选框
-            checkBox_login.setChecked(false);//取消自动登录的复选框
-        }
+        // if (firstLogin()) {
+        //     checkBox_password.setChecked(false);//取消记住密码的复选框
+        //     checkBox_login.setChecked(false);//取消自动登录的复选框
+        // }
         //判断是否记住密码
         if (rememberPassword()) {
             checkBox_password.setChecked(true);//勾选记住密码
@@ -161,7 +161,9 @@ public class LoginActivity extends Activity
         return helper.getBoolean("rememberPassword", false);
     }
 
-
+    /*
+    通过id获取xml元素
+    */
     private void initViews() {
         mLoginBtn = findViewById(R.id.btn_login);
         mRegisterBtn = findViewById(R.id.btn_register);
@@ -171,7 +173,7 @@ public class LoginActivity extends Activity
         checkBox_login = findViewById(R.id.checkBox_login);
         iv_see_password = findViewById(R.id.iv_see_password);
     }
-
+    //通过监听器把对象捆绑到元素上
     private void setupEvents() {
         mLoginBtn.setOnClickListener(this);
         mRegisterBtn.setOnClickListener(this);
@@ -200,17 +202,19 @@ public class LoginActivity extends Activity
         return false;
     }
 
+
+    //监听点击事件  
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_login:
+            case R.id.btn_login: //登录
                 loadUserName();    //无论如何保存一下用户名
-                login(); //登陆
+                login(); 
                 break;
-            case R.id.iv_see_password:
+            case R.id.iv_see_password: //可见或不可见
                 setPasswordVisibility();    //改变图片并设置输入框的文本可见或不可见
                 break;
-            case R.id.btn_register:
+            case R.id.btn_register: //
                 toRegister();
                 break;
 
@@ -247,6 +251,7 @@ public class LoginActivity extends Activity
                         .add("userName", getAccount())
                         .add("password", getPassword())
                         .build();
+                //向服务器发送登录请求
                 Request request = new Request.Builder()
                         // 指定访问的服务器地址是电脑本机
                         .url(getString(R.string.api_ip_port) + "/login")
@@ -263,6 +268,7 @@ public class LoginActivity extends Activity
                 JSONObject jsonObject = new JSONObject(responseData);
                 Integer success = jsonObject.getInt("success");
                 final String message = jsonObject.getString("message");
+                // Integer success = 1;
                 //判断账号和密码
                 if (success == 1) {
                     showToast("登录成功");
@@ -271,7 +277,7 @@ public class LoginActivity extends Activity
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();//关闭页面
                 } else {
-                    showToast(message);
+//                    showToast(message);
                 }
                 setLoginBtnClickable(true);  //这里解放登录按钮，设置为可以点击
                 hideLoading();//隐藏加载框
@@ -317,7 +323,7 @@ public class LoginActivity extends Activity
     }
 
     /**
-     * 获取账号
+     * 获取用户名
      */
     public String getAccount() {
         return et_name.getText().toString().trim();//去掉空格

@@ -49,6 +49,7 @@ public class ShareInfoActivity extends BaseActivity {
 
                 RequestBody requestBody = new FormBody.Builder()
                         .build();
+                //向服务器发送请求
                 Request request = new Request.Builder()
                         .addHeader("cookie", session)
                         .post(requestBody)
@@ -133,6 +134,7 @@ public class ShareInfoActivity extends BaseActivity {
                 RequestBody requestBody = new FormBody.Builder()
                         .add("shareID", String.valueOf(sharingBean.getShareID()))
                         .build();
+                //向服务器发送请求
                 Request request = new Request.Builder()
                         .addHeader("cookie", session)
                         .post(requestBody)

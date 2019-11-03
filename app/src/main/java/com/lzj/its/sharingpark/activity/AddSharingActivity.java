@@ -53,42 +53,89 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class AddSharingActivity extends BaseActivity implements
-        OnGetPoiSearchResultListener, OnGetSuggestionResultListener {
+public class AddSharingActivity extends BaseActivity {
 
     private PoiSearch mPoiSearch = null;
     private SuggestionSearch mSuggestionSearch = null;
 
-    SuperTextView stv_city;
+    // SuperTextView stv_city;
     SuperTextView stv_begin_time;
     SuperTextView stv_end_time;
     SuperTextView stv_cost;
-    EditText et_more;
-    AutoCompleteTextView act_position;
+    SuperTextView stv_parkinglot;
+    SuperTextView stv_act_position;
+    SuperTextView stv_number;
+    // AutoCompleteTextView act_position;
     private ArrayAdapter<String> sugAdapter;
 //    TextView mResultTv;
 
     SuperButton sbnt_add_sharing;
 
     private int loadIndex = 0;
+    String parkingspace_number;
+    String act_position;
+    String parkinglot_name;
+    String positionA;
+    String positionB;
+    String more;
 
     PoiInfo poiInfo = new PoiInfo();
 
-    @Override
+    // @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sharing);
         findView();
+        initParkingspace();
 
-        // 初始化搜索模块，注册搜索事件监听
-        mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(this);
+        // // 初始化搜索模块，注册搜索事件监听
+        // mPoiSearch = PoiSearch.newInstance();
+        // mPoiSearch.setOnGetPoiSearchResultListener(this);
 
         // 初始化建议搜索模块，注册建议搜索事件监听
-        mSuggestionSearch = SuggestionSearch.newInstance();
-        mSuggestionSearch.setOnGetSuggestionResultListener(this);
+        // mSuggestionSearch = SuggestionSearch.newInstance();
+        // mSuggestionSearch.setOnGetSuggestionResultListener(this);
     }
 
+    private void initParkingspace() {
+        new Thread(() -> {
+            try {
+                //向服务器发送请求
+                Request request = new Request.Builder()
+                        .addHeader("cookie", session)
+                        .url(getString(R.string.api_ip_port) + "/MyParkingspace")
+                        .build();
+                Response response = client.newCall(request).execute();
+                String responseData = response.body().string();
+                JSONObject jsonObject = new JSONObject(responseData);
+                Integer success = jsonObject.getInt("success");
+
+                if (success == 1) {
+                    parkinglot_name = jsonObject.getJSONObject("parkingspace").getString("parkinglot");
+                    parkingspace_number = jsonObject.getJSONObject("parkingspace").getString("number");
+                    act_position = jsonObject.getJSONObject("parkingspace").getString("position");
+                    more = jsonObject.getJSONObject("parkingspace").getString("more");
+                    positionA = jsonObject.getJSONObject("parkingspace").getString("positionA");
+                    positionB = jsonObject.getJSONObject("parkingspace").getString("positionB");
+                    runOnUiThread(() -> {
+                        //更新UI
+                        stv_parkinglot.setLeftString(parkinglot_name);
+                        stv_number.setLeftString(parkingspace_number);
+                        stv_act_position.setLeftString(act_position);
+                    });
+                } else if (success == 2) {
+                    showToast("无车位信息！");
+                    Intent intent = new Intent(AddSharingActivity.this,MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+                else{  Intent intent = new Intent(AddSharingActivity.this,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
     private void inputTime(SuperTextView stv) {
         TimePickerView pvTime = new TimePickerBuilder(this, (date, v) -> {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS", Locale.CHINA);
@@ -138,18 +185,19 @@ public class AddSharingActivity extends BaseActivity implements
         d.show();
     }
 
-    private void submitAddSharing(String position, double positionA, double positionB, String begin_time, String end_time, int cost, String more){
+    private void submitAddSharing(String position, String positionA, String positionB, String begin_time, String end_time, int cost, String more){
         Thread addSharingRunnable = new Thread(() -> {
             try {
                 RequestBody requestBody = new FormBody.Builder()
                         .add("position", position)
-                        .add("positionA", String.valueOf(positionA))
-                        .add("positionB", String.valueOf(positionB))
+                        .add("positionA", positionA)
+                        .add("positionB", positionB)
                         .add("beginTime", begin_time)
                         .add("endTime", end_time)
                         .add("cost", String.valueOf(cost))
                         .add("more", more)
                         .build();
+                //向服务器发送请求
                 Request request = new Request.Builder()
                         .addHeader("cookie", session)
                         // 指定访问的服务器地址是电脑本机
@@ -182,42 +230,31 @@ public class AddSharingActivity extends BaseActivity implements
     }
 
     private void addSharing(){
-        String position = poiInfo.getName();
-        double positionA = -1;
-        double positionB = -1;
-        if (poiInfo.getLocation() != null){
-            positionA = poiInfo.getLocation().latitude;
-            positionB = poiInfo.getLocation().longitude;
-        }
         String begin_time = stv_begin_time.getLeftString();
         String end_time = stv_end_time.getLeftString();
         String cost_str = stv_cost.getLeftString();
         int cost = Integer.MIN_VALUE;
-        if (!cost_str.equals("请设置花费...")){
+        if (!cost_str.equals("请设置花费..."))
             cost = Integer.valueOf(cost_str);
-        }
-        String more = et_more.getText().toString();
-        if(position == null)
-            showToast("请输入地址！");
-        else if(positionA <= 0 || positionB <= 0)
-            showToast("输入地址无法找到，请确认地址无误！");
         else if(begin_time.equals("请选择时间..."))
             showToast("请选择开始时间！");
         else if (end_time.equals("请选择时间..."))
             showToast("请选择结束时间！");
-        else if (cost < 0){
-            showToast("请选择结束时间！");
-        }else {
-            submitAddSharing(position, positionA, positionB, begin_time, end_time, cost, more);
+        else if (cost < 0 )
+            showToast("请设置花费！");
+        else{
+            showToast(act_position+positionA+positionB);
+            submitAddSharing(act_position, positionA, positionB, begin_time, end_time, cost, more);
         }
     }
 
     private void findView() {
-        stv_city = findViewById(R.id.stv_city);
+        stv_parkinglot = findViewById(R.id.stv_parkinglot);
+        stv_act_position = findViewById(R.id.stv_act_position);
+        stv_number = findViewById(R.id.stv_number);
         stv_begin_time = findViewById(R.id.stv_begin_time);
         stv_end_time = findViewById(R.id.stv_end_time);
         stv_cost = findViewById(R.id.stv_cost);
-        et_more = findViewById(R.id.et_more);
 
         sbnt_add_sharing = findViewById(R.id.sbt_sharing);
 
@@ -227,164 +264,160 @@ public class AddSharingActivity extends BaseActivity implements
         stv_end_time.setOnClickListener(v -> inputTime(stv_end_time));
         stv_cost.setOnClickListener(v -> inputCost(stv_cost));
 
-        act_position = findViewById(R.id.act_position);
-        sugAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line);
-        act_position.setAdapter(sugAdapter);
-        act_position.setThreshold(1);
-        /* 当输入关键字变化时，动态更新建议列表 */
-        act_position.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable arg0) {
+        // act_position = findViewById(R.id.act_position);
+        // sugAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line);
+        // act_position.setAdapter(sugAdapter);
+        // act_position.setThreshold(1);
+        // /* 当输入关键字变化时，动态更新建议列表 */
+        // act_position.addTextChangedListener(new TextWatcher() {
+        //     @Override
+        //     public void afterTextChanged(Editable arg0) {
 
-                String city_str = stv_city.getLeftString();
-                String key_str = act_position.getText().toString();
+        //         String city_str = stv_city.getLeftString();
+        //         String key_str = act_position.getText().toString();
 
-                mPoiSearch.searchInCity((new PoiCitySearchOption())
-                        .city(city_str)
-                        .keyword(key_str)
-                        .pageNum(loadIndex)
-                        .scope(1));
-            }
+        //         mPoiSearch.searchInCity((new PoiCitySearchOption())
+        //                 .city(city_str)
+        //                 .keyword(key_str)
+        //                 .pageNum(loadIndex)
+        //                 .scope(1));
+        //     }
 
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+        //     @Override
+        //     public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 
-            }
+        //     }
 
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                if (cs.length() <= 0) {
-                    return;
-                }
+        //     @Override
+        //     public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+        //         if (cs.length() <= 0) {
+        //             return;
+        //         }
 
-                /* 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新 */
-                mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
-                        .keyword(cs.toString())
-                        .city(stv_city.getLeftString()));
-            }
-        });
+        //         /* 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新 */
+        //         mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+        //                 .keyword(cs.toString())
+        //                 .city(stv_city.getLeftString()));
+        //     }
+        // });
 
-        stv_city.setOnClickListener((View v) -> list());
+        // stv_city.setOnClickListener((View v) -> list());
     }
 
-    /**
-     * 获取POI搜索结果，包括searchInCity，searchNearby，searchInBound返回的搜索结果
-     *
-     * @param result Poi检索结果，包括城市检索，周边检索，区域检索
-     */
-    public void onGetPoiResult(PoiResult result) {
+    // /**
+    //  * 获取POI搜索结果，包括searchInCity，searchNearby，searchInBound返回的搜索结果
+    //  *
+    //  * @param result Poi检索结果，包括城市检索，周边检索，区域检索
+    //  */
+    // public void onGetPoiResult(PoiResult result) {
 
-        if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
-            showToast("未找到结果");
-            return;
-        }
+    //     if (result == null || result.error == SearchResult.ERRORNO.RESULT_NOT_FOUND) {
+    //         showToast("未找到结果");
+    //         return;
+    //     }
 
-        if (result.error == SearchResult.ERRORNO.NO_ERROR) {
-            poiInfo = result.getAllPoi().get(0);
-            return;
-        }
+    //     if (result.error == SearchResult.ERRORNO.NO_ERROR) {
+    //         poiInfo = result.getAllPoi().get(0);
+    //         return;
+    //     }
 
-        if (result.error == SearchResult.ERRORNO.AMBIGUOUS_KEYWORD) {
-            // 当输入关键字在本市没有找到，但在其他城市找到时，返回包含该关键字信息的城市列表
-            String strInfo = "在";
+    //     if (result.error == SearchResult.ERRORNO.AMBIGUOUS_KEYWORD) {
+    //         // 当输入关键字在本市没有找到，但在其他城市找到时，返回包含该关键字信息的城市列表
+    //         String strInfo = "在";
 
-            for (CityInfo cityInfo : result.getSuggestCityList()) {
-                strInfo += cityInfo.city;
-                strInfo += ",";
-            }
-            strInfo += "找到结果,请切换相应城市后重试！";
-            showToast(strInfo);
-        }
-    }
+    //         for (CityInfo cityInfo : result.getSuggestCityList()) {
+    //             strInfo += cityInfo.city;
+    //             strInfo += ",";
+    //         }
+    //         strInfo += "找到结果,请切换相应城市后重试！";
+    //         showToast(strInfo);
+    //     }
+    // }
 
-    /**
-     * 获取POI详情搜索结果，得到searchPoiDetail返回的搜索结果
-     * V5.2.0版本之后，还方法废弃，使用{@link #onGetPoiDetailResult(PoiDetailSearchResult)}代替
-     *
-     * @param result POI详情检索结果
-     */
-    public void onGetPoiDetailResult(PoiDetailResult result) {
-        if (result.error != SearchResult.ERRORNO.NO_ERROR) {
-            showToast("抱歉，未找到结果");
-        } else {
-            showToast(result.getName() + ": " + result.getAddress());
-        }
-    }
+    // /**
+    //  * 获取POI详情搜索结果，得到searchPoiDetail返回的搜索结果
+    //  * V5.2.0版本之后，还方法废弃，使用{@link #onGetPoiDetailResult(PoiDetailSearchResult)}代替
+    //  *
+    //  * @param result POI详情检索结果
+    //  */
+    // public void onGetPoiDetailResult(PoiDetailResult result) {
+    //     if (result.error != SearchResult.ERRORNO.NO_ERROR) {
+    //         showToast("抱歉，未找到结果");
+    //     } else {
+    //         showToast(result.getName() + ": " + result.getAddress());
+    //     }
+    // }
 
-    @Override
-    public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
-        if (poiDetailSearchResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            showToast("抱歉，未找到结果");
-        } else {
-            List<PoiDetailInfo> poiDetailInfoList = poiDetailSearchResult.getPoiDetailInfoList();
-            if (null == poiDetailInfoList || poiDetailInfoList.isEmpty()) {
-                showToast("抱歉，检索结果为空");
-                return;
-            }
+    // @Override
+    // public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
+    //     if (poiDetailSearchResult.error != SearchResult.ERRORNO.NO_ERROR) {
+    //         showToast("抱歉，未找到结果");
+    //     } else {
+    //         List<PoiDetailInfo> poiDetailInfoList = poiDetailSearchResult.getPoiDetailInfoList();
+    //         if (null == poiDetailInfoList || poiDetailInfoList.isEmpty()) {
+    //             showToast("抱歉，检索结果为空");
+    //             return;
+    //         }
 
-            for (int i = 0; i < poiDetailInfoList.size(); i++) {
-                PoiDetailInfo poiDetailInfo = poiDetailInfoList.get(i);
-                if (null != poiDetailInfo) {
-                    showToast(poiDetailInfo.getName() + ": " + poiDetailInfo.getAddress());
-                }
-            }
-        }
-    }
+    //         for (int i = 0; i < poiDetailInfoList.size(); i++) {
+    //             PoiDetailInfo poiDetailInfo = poiDetailInfoList.get(i);
+    //             if (null != poiDetailInfo) {
+    //                 showToast(poiDetailInfo.getName() + ": " + poiDetailInfo.getAddress());
+    //             }
+    //         }
+    //     }
+    // }
 
-    @Override
-    public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+    
+    // /**
+    //  * 获取在线建议搜索结果，得到requestSuggestion返回的搜索结果
+    //  *
+    //  * @param res Sug检索结果
+    //  */
+    // @Override
+    // public void onGetSuggestionResult(SuggestionResult res) {
+    //     if (res == null || res.getAllSuggestions() == null) {
+    //         return;
+    //     }
 
-    }
+    //     List<String> suggest = new ArrayList<>();
+    //     for (SuggestionResult.SuggestionInfo info : res.getAllSuggestions()) {
+    //         if (info.key != null) {
+    //             suggest.add(info.key);
+    //         }
+    //     }
 
-    /**
-     * 获取在线建议搜索结果，得到requestSuggestion返回的搜索结果
-     *
-     * @param res Sug检索结果
-     */
-    @Override
-    public void onGetSuggestionResult(SuggestionResult res) {
-        if (res == null || res.getAllSuggestions() == null) {
-            return;
-        }
+    //     sugAdapter = new ArrayAdapter<>(AddSharingActivity.this, android.R.layout.simple_dropdown_item_1line,
+    //             suggest);
+    //     act_position.setAdapter(sugAdapter);
+    //     sugAdapter.notifyDataSetChanged();
+    // }
 
-        List<String> suggest = new ArrayList<>();
-        for (SuggestionResult.SuggestionInfo info : res.getAllSuggestions()) {
-            if (info.key != null) {
-                suggest.add(info.key);
-            }
-        }
+    // public void list() {
+    //     Intent intent = new Intent(AddSharingActivity.this, CityListSelectActivity.class);
+    //     startActivityForResult(intent, CityListSelectActivity.CITY_SELECT_RESULT_FRAG);
+    // }
 
-        sugAdapter = new ArrayAdapter<>(AddSharingActivity.this, android.R.layout.simple_dropdown_item_1line,
-                suggest);
-        act_position.setAdapter(sugAdapter);
-        sugAdapter.notifyDataSetChanged();
-    }
+    // @Override
+    // protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //     super.onActivityResult(requestCode, resultCode, data);
+    //     if (requestCode == CityListSelectActivity.CITY_SELECT_RESULT_FRAG) {
+    //         if (resultCode == RESULT_OK) {
+    //             if (data == null) {
+    //                 return;
+    //             }
+    //             Bundle bundle = data.getExtras();
 
-    public void list() {
-        Intent intent = new Intent(AddSharingActivity.this, CityListSelectActivity.class);
-        startActivityForResult(intent, CityListSelectActivity.CITY_SELECT_RESULT_FRAG);
-    }
+    //             CityInfoBean cityInfoBean = bundle.getParcelable("cityinfo");
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CityListSelectActivity.CITY_SELECT_RESULT_FRAG) {
-            if (resultCode == RESULT_OK) {
-                if (data == null) {
-                    return;
-                }
-                Bundle bundle = data.getExtras();
+    //             if (null == cityInfoBean) {
+    //                 return;
+    //             }
 
-                CityInfoBean cityInfoBean = bundle.getParcelable("cityinfo");
-
-                if (null == cityInfoBean) {
-                    return;
-                }
-
-                stv_city.setLeftString(cityInfoBean.getName());
-            }
-        }
-    }
+    //             stv_city.setLeftString(cityInfoBean.getName());
+    //         }
+    //     }
+    // }
 
     @Override
     protected void onPause() {

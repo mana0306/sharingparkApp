@@ -171,6 +171,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                         .add("password", getPassword())
                         .add("phone", getPhone())
                         .build();
+                //向服务器发送注册请求
                 Request request = new Request.Builder()
                         // 指定访问的服务器地址是电脑本机
                         .url(getString(R.string.api_ip_port) + "/register")
@@ -207,7 +208,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         registerRunnable.start();
     }
 
-
+    //获取用户名
     public String getUserName() {
         return et_username.getText().toString().trim();//去掉空格
     }
@@ -219,10 +220,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         return et_password.getText().toString().trim();//去掉空格
     }
 
+    //获取确认密码
     public String getPasswordConfirm() {
         return et_password_confirm.getText().toString().trim();//去掉空格
     }
 
+    //获取手机号
     public String getPhone() {
         return et_phone.getText().toString().trim();//去掉空格
     }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.AddSharingActivity">
+    tools:context=".activity.AuthActivity2">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:stv="http://schemas.android.com/apk/res-auto"
@@ -15,132 +15,123 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="151dp">
 
+
+        
+
         <com.allen.library.SuperTextView
-            android:id="@+id/stv_parkinglot_title"
+            android:id="@+id/stv_city_title"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_50"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_tiny"
-            stv:sCenterTextString="停车场:" />
-
+            stv:sCenterTextString="城市:" />
 
         <com.allen.library.SuperTextView
-            android:id="@+id/stv_parkinglot"
+            android:id="@+id/stv_city"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toEndOf="@id/stv_parkinglot_title"/>
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_number_title"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_parkinglot_title"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
-            stv:sCenterTextString="车位号:" />
-            
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_number"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_parkinglot"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toEndOf="@id/stv_number_title"/>
+            android:layout_toEndOf="@id/stv_city_title"
+            stv:sLeftTextString="请选择城市..." />
 
         <com.allen.library.SuperTextView
             android:id="@+id/stv_position_title"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_number_title"
+            android:layout_below="@id/stv_city_title"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_tiny"
             stv:sCenterTextString="详细地址:" />
 
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_act_position"
+        <AutoCompleteTextView
+            android:id="@+id/act_position"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_number"
+            android:layout_below="@id/stv_city"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toEndOf="@id/stv_position_title"/>
+            android:layout_toEndOf="@+id/stv_position_title"
+            android:maxLines="1"
+            android:paddingStart="@dimen/dp_5"
+            android:paddingEnd="@dimen/dp_5"
+            android:hint="请输入详细地址"
+            android:textSize="16sp"
+            android:singleLine="true" />
 
+
+            
         <com.allen.library.SuperTextView
-            android:id="@+id/stv_begin_time_title"
+            android:id="@+id/stv_more_title1"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_50"
             android:layout_below="@id/stv_position_title"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_tiny"
-            android:paddingStart="@dimen/dp_5"
-            android:paddingEnd="@dimen/dp_5"
-            android:textSize="16sp"
-            stv:sCenterTextString="开始时间:" />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_begin_time"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_act_position"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toEndOf="@id/stv_begin_time_title"
-            android:paddingStart="@dimen/dp_5"
-            android:paddingEnd="@dimen/dp_5"
-            stv:sLeftTextString="请选择时间..." />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_end_time_title"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_begin_time_title"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
-            android:paddingStart="@dimen/dp_5"
-            android:paddingEnd="@dimen/dp_5"
-            android:textSize="16sp"
-            stv:sCenterTextString="结束时间:" />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_end_time"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_begin_time_title"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toEndOf="@id/stv_end_time_title"
-            android:paddingStart="@dimen/dp_5"
-            android:paddingEnd="@dimen/dp_5"
-            android:textSize="16sp"
-            stv:sLeftTextString="请选择时间..." />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_cost_title"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_end_time_title"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginBottom="@dimen/margin_tiny"
             android:padding="@dimen/dp_5"
             android:textSize="16sp"
-            stv:sCenterTextString="花费信用:" />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/stv_cost"
+            stv:sCenterTextString="停车场：" />
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_50"
-            android:layout_below="@id/stv_end_time_title"
+            android:layout_below="@id/act_position"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_tiny"
-            android:layout_toEndOf="@id/stv_cost_title"
-            android:padding="@dimen/dp_5"
+            android:layout_toEndOf="@id/stv_more_title1"
             android:singleLine="true"
-            android:textSize="16sp"
-            stv:sLeftTextString="请设置花费..."/>
+            android:id="@+id/stv_parkinglot_name">
+        </Spinner>
 
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_parkingspace_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_more_title1"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="车位号:" />
+
+        <EditText
+            android:id="@+id/stv_parkingspace_number"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_parkinglot_name"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_parkingspace_title"
+            android:singleLine="true"
+            android:padding="@dimen/dp_5"
+            android:hint="请输入车位号"
+            android:textSize="16sp"
+            />
+
+        
+        <com.allen.library.SuperTextView
+            android:id="@+id/stv_more_title"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_parkingspace_title"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:padding="@dimen/dp_5"
+            android:textSize="16sp"
+            stv:sCenterTextString="备注:" />
+
+        <EditText
+            android:id="@+id/et_more"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_below="@id/stv_parkingspace_number"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_tiny"
+            android:layout_toEndOf="@id/stv_more_title"
+            android:singleLine="true"
+            android:padding="@dimen/dp_5"
+            android:hint="如车位靠近3栋4单元"
+            android:textSize="16sp"
+            />
         <com.allen.library.SuperButton
             android:id="@+id/sbt_sharing"
             android:layout_width="match_parent"
@@ -152,7 +143,7 @@
             android:layout_marginEnd="@dimen/dp_60"
             android:gravity="center"
             android:padding="@dimen/dp_5"
-            android:text="确认共享"
+            android:text="确认"
             android:paddingTop="@dimen/margin_small"
             android:paddingBottom="@dimen/margin_small" />
     </RelativeLayout>
